@@ -24,7 +24,8 @@ export class Calculator {
 
     subtract(): number {
         if (this.values.length === 0) return 0;
-        return reduce(this.values.slice(1), (acc, curr) => acc - curr, this.values[0]);
+        // Użycie ?? 0 wymusza na kompilatorze typ 'number' zamiast 'number | undefined'
+        return reduce(this.values.slice(1), (acc, curr) => acc - curr, this.values[0] ?? 0);
     }
 
     multiply(): number {
@@ -40,6 +41,22 @@ export class Calculator {
                 return acc;
             }
             return acc / curr;
-        }, this.values[0]);
+        }, this.values[0] ?? 0);
     }
+
+    min(): number {
+        if (this.values.length === 0) return 0;
+        return Math.min(...this.values);
+    }
+
+    max(): number {
+        if (this.values.length === 0) return 0;
+        return Math.max(...this.values);
+    }
+
+    average(): number {
+        if (this.values.length === 0) return 0;
+        return this.add() / this.values.length;
+    }
+
 }
